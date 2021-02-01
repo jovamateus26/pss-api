@@ -24,6 +24,8 @@ Route.resource('user', 'UserController')
     [['user.store'], ['StoreUser']]
   ]))
 
+Route.get('/login', 'SessionController.login').validator('SessionLogin')
+
 Route.resource('/pss', 'PssController')
 
 Route.resource('/vaga', 'VagaController')
