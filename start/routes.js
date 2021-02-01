@@ -23,6 +23,9 @@ Route.resource('user', 'UserController')
   .validator(new Map([
     [['user.store'], ['StoreUser']]
   ]))
+  .middleware(new Map([
+    [['index'], ['auth']]
+  ]))
 
 Route.get('/login', 'SessionController.login').validator('SessionLogin')
 
