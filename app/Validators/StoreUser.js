@@ -13,7 +13,7 @@ class StoreUser {
       flIndio: 'required',
       dataNascimento: 'required',
       endereco: 'required',
-      nrEndereco: ''
+      nrEndereco: 'required'
     }
   }
   get message () {
