@@ -6,7 +6,7 @@ class StoreUser {
       // validation rules
       email: 'required|email|unique:users',
       password: 'required|confirmed',
-      nrDocumento: 'required|cpf',
+      nrDocumento: 'required|cpf|unique:users',
       nmPessoa: 'required',
       flPNE: 'required|max:1',
       flAfrodescendente: 'required|max:1',
@@ -24,6 +24,7 @@ class StoreUser {
       'password.confirmed': 'As senhas nao são iguais',
       'nrDocumento.required': 'O campo cpf não pode ser em branco',
       'nrDocumento.cpf': 'O cpf informado é inválido',
+      'nrDocumento.unique': 'O cpf informado já está em uso',
       'flPNE.required': 'Deve ser informado é portador de deficiencia',
       'flPNE.max': 'Use S ou N',
       'flAfrodescendente.required': 'A opção afrodescendente deve ser informada',
