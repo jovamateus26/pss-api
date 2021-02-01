@@ -11,6 +11,18 @@ class JsonAccept {
    */
   async handle ({ request }, next) {
     // call next to advance the request
+    let headers = request.headers()
+    headers.accept = 'application/json'
+    await next()
+  }
+
+  /**
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Function} next
+   */
+  async wsHandle ({ request }, next) {
+    // call next to advance the request
     await next()
   }
 }
