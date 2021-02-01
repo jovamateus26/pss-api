@@ -3,9 +3,15 @@
 const User = use('App/Models/User')
 
 class UserController {
-  async index () {
-    const user = await  User.all()
-    return user
+  async index ({auth}) {
+    if (auth.user.isAdmin === 1){
+      const user = await  User.all()
+      return user
+    } else {
+      const user = await  User.find(auth.user.id)
+      return user
+    }
+
   }
 
   async store ({request}) {
