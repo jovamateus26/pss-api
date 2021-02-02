@@ -52,6 +52,7 @@ class PssController {
       'dataFinal'
     ])
     const pss = await Pss.create(dados)
+    return pss
   }
 
   /**
