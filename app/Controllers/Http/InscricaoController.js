@@ -1,5 +1,5 @@
 'use strict'
-
+const Inscricao = use('App/Models/Inscricao')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -41,6 +41,12 @@ class InscricaoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = request.only([
+      'users_id',
+      'vaga_id'
+    ])
+    const inscricao = Inscricao.create(data)
+    return inscricao
   }
 
   /**
