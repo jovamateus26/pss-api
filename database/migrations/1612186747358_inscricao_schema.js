@@ -17,6 +17,7 @@ class InscricaoSchema extends Schema {
         .references('id')
         .inTable('vagas')
         .notNullable()
+      table.json('titulos')
       table.timestamps()
       table.unique(['user_id', 'vaga_id'])
     })

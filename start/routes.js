@@ -40,3 +40,6 @@ Route.resource('vaga', 'VagaController')
   ]))
 
 Route.resource('inscricao', 'InscricaoController')
+  .validator(new Map([
+    [['inscricao.store'], ['InscricaoStore']]
+  ]))
