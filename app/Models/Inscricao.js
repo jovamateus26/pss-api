@@ -4,6 +4,12 @@
 const Model = use('Model')
 
 class Inscricao extends Model {
+  vaga () {
+    return this.hasOne('App/Models/Vaga', 'vaga_id', 'id')
+  }
+  user () {
+    return this.hasOne('App/Models/User', 'users_id', 'id')
+  }
 }
 
 module.exports = Inscricao
