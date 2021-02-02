@@ -17,9 +17,13 @@ class InscricaoSchema extends Schema {
         .references('id')
         .inTable('vagas')
         .notNullable()
+      table.integer('pss_id')
+        .unsigned()
+        .references('id')
+        .inTable('pss')
       table.json('titulos')
       table.timestamps()
-      table.unique(['user_id', 'vaga_id'])
+      table.unique(['user_id', 'pss_id'])
     })
   }
 

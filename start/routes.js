@@ -20,26 +20,33 @@ Route.get('/', () => {
 })
 
 Route.resource('user', 'UserController')
+  .middleware(new Map([
+    [['index', 'update', 'destroy'], ['auth']]
+  ]))
   .validator(new Map([
     [['user.store'], ['StoreUser']]
-  ]))
-  .middleware(new Map([
-    [['index'], ['auth']]
   ]))
 
 Route.get('/login', 'SessionController.login').validator('SessionLogin')
 
 Route.resource('pss', 'PssController')
+  .middleware(new Map([
+    [['store', 'update', 'destroy'], ['auth']]
+  ]))
   .validator(new Map([
     [['pss.store'], ['PssStore']]
   ]))
 
 Route.resource('vaga', 'VagaController')
+  .middleware(new Map([
+    [['store', 'update', 'destroy'], ['auth']]
+  ]))
   .validator(new Map([
     [['vaga.store'], ['VagaStore']]
   ]))
 
 Route.resource('inscricao', 'InscricaoController')
+  .middleware('auth')
   .validator(new Map([
     [['inscricao.store'], ['InscricaoStore']]
   ]))

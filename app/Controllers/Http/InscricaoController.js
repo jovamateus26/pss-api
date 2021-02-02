@@ -2,6 +2,7 @@
 const Inscricao = use('App/Models/Inscricao')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
+
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
@@ -17,8 +18,27 @@ class InscricaoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    const inscricao = Inscricao
+  async index({request, response, view, auth}) {
+    if (auth.user.isAdmin === 1) {
+      const inscricao = await Inscricao
+        .query()
+        .with('vaga')
+        .with('vaga.pss')
+        .with('user')
+        .fetch()
+
+      return inscricao
+    } else {
+      const inscricao = await Inscricao
+        .query()
+        .where('id', auth.user.id)
+        .with('vaga')
+        .with('vaga.pss')
+        .with('user')
+        .fetch()
+
+      return inscricao
+    }
   }
 
   /**
@@ -30,7 +50,7 @@ class InscricaoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({request, response, view}) {
   }
 
   /**
@@ -41,7 +61,7 @@ class InscricaoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({request, response}) {
     const data = request.only([
       'user_id',
       'vaga_id',
@@ -60,7 +80,7 @@ class InscricaoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({params, request, response, view}) {
   }
 
   /**
@@ -72,7 +92,7 @@ class InscricaoController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({params, request, response, view}) {
   }
 
   /**
@@ -83,7 +103,7 @@ class InscricaoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({params, request, response}) {
   }
 
   /**
@@ -94,7 +114,7 @@ class InscricaoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({params, request, response}) {
   }
 }
 

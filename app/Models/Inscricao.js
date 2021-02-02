@@ -8,7 +8,7 @@ class Inscricao extends Model {
     return this.hasOne('App/Models/Vaga', 'vaga_id', 'id')
   }
   user () {
-    return this.hasOne('App/Models/User', 'users_id', 'id')
+    return this.hasOne('App/Models/User', 'user_id', 'id')
   }
 }
 
