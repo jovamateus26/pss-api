@@ -18,6 +18,7 @@ class InscricaoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const inscricao = Inscricao
   }
 
   /**
@@ -42,8 +43,9 @@ class InscricaoController {
    */
   async store ({ request, response }) {
     const data = request.only([
-      'users_id',
-      'vaga_id'
+      'user_id',
+      'vaga_id',
+      'titulos'
     ])
     const inscricao = Inscricao.create(data)
     return inscricao
