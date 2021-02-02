@@ -15,6 +15,7 @@ class PssSchema extends Schema {
       table.date('dataInicio').notNullable()
       table.date('dataFinal').notNullable()
       table.timestamps()
+      table.unique(['nrEditalConcurso','anoEditalConcurso'])
     })
   }
 
