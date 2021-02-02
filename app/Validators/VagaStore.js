@@ -4,7 +4,7 @@ class VagaStore {
   get rules () {
     return {
       // validation rules
-      cdOpcao: 'required|integer',
+      cdOpcao: 'required|integer|unique,vagas',
       nmVaga: 'required',
       localVaga: 'required',
       qtdVaga: 'required|integer',
@@ -15,6 +15,7 @@ class VagaStore {
     return {
       'cdOpcao.required': 'Informe o código de opção do cargo oferecido',
       'cdOpcao.integer': 'O código de opção do cargo oferecido deve ser um número inteiro',
+      'cdOpcao.unique': 'O código de opção do cargo oferecido já existe',
       'nmVaga.required': 'O campo cargo não pode ser em branco',
       'localVaga.required': 'O campo local da vaga não pode ser em branco',
       'qtdVaga.required': 'O campo quantidade de vagas não pode ser em branco',

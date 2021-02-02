@@ -7,7 +7,7 @@ class VagaSchema extends Schema {
   up () {
     this.create('vagas', (table) => {
       table.increments()
-      table.integer('cdOpcao').notNullable().unique()
+      table.integer('cdOpcao').unique().notNullable()
       table.string('nmVaga').notNullable()
       table.string('localVaga').notNullable()
       table.integer('qtdVaga').notNullable()
