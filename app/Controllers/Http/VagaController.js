@@ -45,11 +45,13 @@ class VagaController {
   async store ({ request, response }) {
     const data = await request.only([
       'cdOpcao',
-      'nmvaga',
+      'nmVaga',
       'localVaga',
-      'qtdVaga'
+      'qtdVaga',
+      'pss_id'
     ])
     const vaga = await Vaga.create(data)
+    return vaga
   }
 
   /**

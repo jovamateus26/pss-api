@@ -34,6 +34,9 @@ Route.resource('pss', 'PssController')
     [['pss.store'], ['PssStore']]
   ]))
 
-Route.resource('/vaga', 'VagaController')
+Route.resource('vaga', 'VagaController')
+  .validator(new Map([
+    [['vaga.store'], ['VagaStore']]
+  ]))
 
-Route.resource('/inscricao', 'InscricaoController')
+Route.resource('inscricao', 'InscricaoController')
