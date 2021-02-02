@@ -29,7 +29,10 @@ Route.resource('user', 'UserController')
 
 Route.get('/login', 'SessionController.login').validator('SessionLogin')
 
-Route.resource('/pss', 'PssController')
+Route.resource('pss', 'PssController')
+  .validator(new Map([
+    [['pss.store'], ['PssStore']]
+  ]))
 
 Route.resource('/vaga', 'VagaController')
 
