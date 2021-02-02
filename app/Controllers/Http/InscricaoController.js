@@ -1,5 +1,6 @@
 'use strict'
 const Inscricao = use('App/Models/Inscricao')
+const Vaga = use('App/Models/Vaga')
 const { validate } = use('Validator')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -32,7 +33,7 @@ class InscricaoController {
     } else {
       const inscricao = await Inscricao
         .query()
-        .where('id', auth.user.id)
+        .where('user_id', auth.user.id)
         .with('vaga')
         .with('vaga.pss')
         .with('user')
@@ -64,7 +65,8 @@ class InscricaoController {
    */
   async store({request, response, auth}) {
     const rules = {
-      user_id: 'required|integer|exists,users,id|uniqueWhere:inscricaos,user_id,pss_id'
+      user_id: 'required|integer|exists,users,id|uniqueWhere:inscricaos,user_id,pss_id',
+      pss_id: 'required|integer|exists,pss,id'
     }
     const messages ={
       'user_id.required': 'O campo usuário não pode ser vazio',
@@ -77,6 +79,9 @@ class InscricaoController {
       'titulos'
     ])
     data.user_id = auth.user.id
+
+    const vaga = await Vaga.findOrFail(data.vaga_id)
+    data.pss_id = vaga.pss_id
 
     const validation = await validate(data, rules,messages)
     if (validation.fails()) {
