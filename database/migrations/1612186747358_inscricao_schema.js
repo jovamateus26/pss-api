@@ -7,15 +7,18 @@ class InscricaoSchema extends Schema {
   up () {
     this.create('inscricaos', (table) => {
       table.increments()
-      table.integer('users_id')
+      table.integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')
+        .notNullable()
       table.integer('vaga_id')
         .unsigned()
         .references('id')
         .inTable('vagas')
+        .notNullable()
       table.timestamps()
+      table.unique(['user_id', 'vaga_id'])
     })
   }
 
