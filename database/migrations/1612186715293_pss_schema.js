@@ -10,6 +10,7 @@ class PssSchema extends Schema {
       table.integer('nrEditalConcurso').notNullable()
       table.integer('anoEditalConcurso').notNullable()
       table.integer('idTipoSelecao').notNullable()
+      table.string('tituloPss').notNullable()
       table.string('descricaoPss').notNullable()
       table.date('dataInicio').notNullable()
       table.date('dataFinal').notNullable()
