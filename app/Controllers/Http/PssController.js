@@ -42,7 +42,7 @@ class PssController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    const dados = request.only([
+    const dados = await request.only([
       'nrEditalConcurso',
       'anoEditalConcurso',
       'idTipoSelecao',
