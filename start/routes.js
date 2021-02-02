@@ -31,7 +31,7 @@ Route.get('/login', 'SessionController.login').validator('SessionLogin')
 
 Route.resource('pss', 'PssController')
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
+    [['store', 'update', 'destroy'], ['auth', 'isAdmin']]
   ]))
   .validator(new Map([
     [['pss.store'], ['PssStore']]
@@ -39,7 +39,7 @@ Route.resource('pss', 'PssController')
 
 Route.resource('vaga', 'VagaController')
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
+    [['store', 'update', 'destroy'], ['auth','isAdmin']]
   ]))
   .validator(new Map([
     [['vaga.store'], ['VagaStore']]
