@@ -18,7 +18,10 @@ class VagaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const vaga = await Vaga.all()
+    const vaga = await Vaga
+      .query()
+      .with('pss')
+      .fetch()
     return vaga
   }
 
