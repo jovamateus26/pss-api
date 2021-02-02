@@ -1,5 +1,6 @@
 'use strict'
 const Inscricao = use('App/Models/Inscricao')
+const { validate } = use('Validator')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 
@@ -61,12 +62,26 @@ class InscricaoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({request, response}) {
+  async store({request, response, auth}) {
+    const rules = {
+      user_id: 'required|integer|exists,users,id|uniqueWhere:inscricaos,user_id,pss_id'
+    }
+    const messages ={
+      'user_id.required': 'O campo usuário não pode ser vazio',
+      'user_id.integer': 'A id do usuário deve ser um número inteiro',
+      'user_id.exists': 'O usuário informado é inválido',
+      'user_id.uniqueWhere': 'Só é permitido uma inscrição por usuário',
+    }
     const data = request.only([
-      'user_id',
       'vaga_id',
       'titulos'
     ])
+    data.user_id = auth.user.id
+
+    const validation = await validate(data, rules,messages)
+    if (validation.fails()) {
+      return response.status(400).send(validation.messages())
+    }
     const inscricao = Inscricao.create(data)
     return inscricao
   }

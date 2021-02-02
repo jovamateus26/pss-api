@@ -21,6 +21,7 @@ class InscricaoSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('pss')
+        .notNullable()
       table.json('titulos')
       table.timestamps()
       table.unique(['user_id', 'pss_id'])

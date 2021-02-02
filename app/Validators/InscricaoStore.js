@@ -4,7 +4,7 @@ class InscricaoStore {
   get rules () {
     return {
       // validation rules
-      user_id: 'required|integer|exists,users,id|uniqueWhere:inscricaos,user_id,vaga_id',
+      // user_id: 'required|integer|exists,users,id|uniqueWhere:inscricaos,user_id,vaga_id',
       vaga_id: 'required|integer|exists,vagas,id',
       titulos: 'required'
     }
