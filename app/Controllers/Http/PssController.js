@@ -42,6 +42,16 @@ class PssController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const dados = request.only([
+      'nrEditalConcurso',
+      'anoEditalConcurso',
+      'idTipoSelecao',
+      'tituloPss',
+      'descricaoPss',
+      'dataInicio',
+      'dataFinal'
+    ])
+    const pss = await Pss.create(dados)
   }
 
   /**
