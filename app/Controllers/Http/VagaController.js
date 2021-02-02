@@ -1,5 +1,5 @@
 'use strict'
-
+const Vaga = use('App/Models/Vaga')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -18,6 +18,8 @@ class VagaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const vaga = await Vaga.all()
+    return vaga
   }
 
   /**
@@ -41,6 +43,13 @@ class VagaController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = await request.only([
+      'cdOpcao',
+      'nmvaga',
+      'localVaga',
+      'qtdVaga'
+    ])
+    const vaga = await Vaga.create(data)
   }
 
   /**
