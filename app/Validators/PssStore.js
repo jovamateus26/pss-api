@@ -4,7 +4,7 @@ class PssStore {
   get rules () {
     return {
       // validation rules
-      nrEditalConcurso: 'required|integer',
+      nrEditalConcurso: 'required|integer|uniqueWhere:pss,nrEditalConcurso,anoEditalConcurso',
       anoEditalConcurso: 'required|integer|min:4|max:4',
       idTipoSelecao: 'required|integer|min:1|max:4',
       descricaoPss: 'required',
@@ -17,6 +17,7 @@ class PssStore {
     return {
       'nrEditalConcurso.required': 'O campo número do edital não pode ser em branco',
       'nrEditalConcurso.integer': 'O campo número do edital informado deve ser um número inteiro',
+      'nrEditalConcurso.uniqueWhere': 'Já existe um edital com o mesmo numero para esse ano',
       'anoEditalConcurso.required': 'O campo ano do edital não pode ser em branco',
       'idTipoSelecao.required': 'O campo tipo de seleção não pode ser em branco',
       'idTipoSelecao.integer': 'O campo tipo de seleção deve ser um número inteiro',
