@@ -50,3 +50,8 @@ Route.resource('inscricao', 'InscricaoController')
   .validator(new Map([
     [['inscricao.store'], ['InscricaoStore']]
   ]))
+
+Route.resource('calculo', 'CalculoController')
+  .middleware(new Map([
+    [['store', 'update', 'destroy'], ['auth','isAdmin']]
+  ]))
