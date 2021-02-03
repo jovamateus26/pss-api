@@ -16,6 +16,7 @@ class VagaSchema extends Schema {
         .references('id')
         .inTable('pss')
         .notNullable()
+      table.json('calculo')
       table.timestamps()
     })
   }
