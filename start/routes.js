@@ -27,7 +27,7 @@ Route.resource('user', 'UserController')
     [['user.store'], ['StoreUser']]
   ]))
 
-Route.get('/login', 'SessionController.login').validator('SessionLogin')
+Route.post('/login', 'SessionController.login').validator('SessionLogin')
 
 Route.resource('pss', 'PssController')
   .middleware(new Map([
