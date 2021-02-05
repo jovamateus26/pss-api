@@ -37,6 +37,8 @@ Route.resource('pss', 'PssController')
     [['pss.store'], ['PssStore']]
   ]))
 
+Route.get('vaga/pss/:id', 'VagaController.vagaPss')
+
 Route.resource('vaga', 'VagaController')
   .middleware(new Map([
     [['store', 'update', 'destroy'], ['auth','isAdmin']]

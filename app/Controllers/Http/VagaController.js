@@ -25,6 +25,15 @@ class VagaController {
     return vaga
   }
 
+  async vagaPss ({ request, params, response, view }) {
+    const vaga = await Vaga
+      .query()
+      .where('pss_id', '=', params.id)
+      .with('pss')
+      .fetch()
+    return vaga
+  }
+
   /**
    * Render a form to be used for creating a new vaga.
    * GET vagas/create

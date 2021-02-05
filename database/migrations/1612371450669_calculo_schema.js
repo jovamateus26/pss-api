@@ -17,6 +17,7 @@ class CalculoSchema extends Schema {
       table.integer('pontuacao').notNullable()
       table.integer('pontuacaoMax').notNullable()
       table.timestamps()
+      table.unique(['vaga_id', 'titulo'])
     })
   }
 

@@ -65,6 +65,8 @@ class PssController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const pss = await Pss.findOrFail(params.id)
+    return pss
   }
 
   /**
