@@ -12,6 +12,8 @@ class CalculoSchema extends Schema {
         .references('id')
         .inTable('vagas')
         .notNullable()
+      table.string('titulo').notNullable()
+      table.string('descricao').notNullable()
       table.integer('pontuacao').notNullable()
       table.integer('pontuacaoMax').notNullable()
       table.timestamps()

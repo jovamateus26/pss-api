@@ -1,5 +1,6 @@
 'use strict'
 const Calculo = use('App/Models/Calculo')
+const Inscricao = use('App/Models/Inscricao')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -45,9 +46,10 @@ class CalculoController {
   async store ({ request, response, auth }) {
     const data = request.only([
       'vaga_id',
-      'titulo',
       'pontuacao',
-      'pontuacaoMax'
+      'pontuacaoMax',
+      'titulo',
+      'descricao'
     ])
     const calculo = Calculo.create(data)
     return calculo
@@ -63,6 +65,22 @@ class CalculoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const inscricao = await Inscricao.findOrFail(params.id)
+    const titulos = inscricao.titulos
+    let calculo = await Calculo
+      .query()
+      .where('vaga_id', '=', inscricao.vaga_id)
+      .fetch()
+    calculo = calculo.toJSON()
+    let parcial = []
+    for (let row in calculo) {
+      const titulo = calculo[row].titulo
+      const total = await this.calcularTitulo(titulos[calculo[row].titulo], calculo[row])
+      parcial.push({titulo, total})
+    }
+    const total = await this.calcularTotal(parcial)
+
+    response.status(200).send({inscricao,parcial,total})
   }
 
   /**
@@ -97,6 +115,21 @@ class CalculoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+  }
+
+  async calcularTitulo(titulo, calculo) {
+    const parcial = titulo?titulo * calculo.pontuacao:0
+    const valor = parcial < calculo.pontuacaoMax?parcial:calculo.pontuacaoMax
+
+    return valor
+  }
+
+  async calcularTotal(parcial) {
+    let total = 0
+    for (let parc in parcial) {
+      total = total+parcial[parc].total
+    }
+    return total
   }
 }
 

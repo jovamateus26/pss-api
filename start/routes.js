@@ -55,3 +55,6 @@ Route.resource('calculo', 'CalculoController')
   .middleware(new Map([
     [['store', 'update', 'destroy'], ['auth','isAdmin']]
   ]))
+  .validator(new Map([
+    [['calculo.store'], ['CalculoStore']]
+  ]))
