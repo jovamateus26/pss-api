@@ -28,6 +28,7 @@ Route.resource('user', 'UserController')
   ]))
 
 Route.post('/login', 'SessionController.login').validator('SessionLogin')
+Route.post('checktoken', 'SessionController.checkToken')
 
 Route.resource('pss', 'PssController')
   .middleware(new Map([

@@ -76,6 +76,8 @@ class VagaController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const vaga = await Vaga.findOrFail(params.id)
+    return vaga
   }
 
   /**
