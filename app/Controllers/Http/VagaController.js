@@ -1,7 +1,9 @@
 'use strict'
 const Vaga = use('App/Models/Vaga')
+const Helpers = use('Helpers')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
+
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
@@ -17,7 +19,7 @@ class VagaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({request, response, view}) {
     const vaga = await Vaga
       .query()
       .with('pss')
@@ -25,7 +27,7 @@ class VagaController {
     return vaga
   }
 
-  async vagaPss ({ request, params, response, view }) {
+  async vagaPss({request, params, response, view}) {
     const vaga = await Vaga
       .query()
       .where('pss_id', '=', params.id)
@@ -43,7 +45,7 @@ class VagaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({request, response, view}) {
   }
 
   /**
@@ -54,7 +56,7 @@ class VagaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({request, response}) {
     const data = await request.only([
       'cdOpcao',
       'nmVaga',
@@ -75,7 +77,7 @@ class VagaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({params, request, response, view}) {
     const vaga = await Vaga.findOrFail(params.id)
     return vaga
   }
@@ -89,7 +91,7 @@ class VagaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({params, request, response, view}) {
   }
 
   /**
@@ -100,7 +102,7 @@ class VagaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({params, request, response}) {
   }
 
   /**
@@ -111,7 +113,11 @@ class VagaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({params, request, response}) {
+  }
+
+  async download({response}) {
+    response.download(Helpers.tmpPath('files/editalpss2021.pdf'))
   }
 }
 

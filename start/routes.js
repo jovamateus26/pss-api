@@ -48,6 +48,8 @@ Route.resource('vaga', 'VagaController')
     [['vaga.store'], ['VagaStore']]
   ]))
 
+Route.get('/edital', 'VagaController.download')
+
 Route.resource('inscricao', 'InscricaoController')
   .middleware('auth')
   .validator(new Map([
