@@ -134,7 +134,18 @@ class InscricaoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({params, request, response}) {
+  async destroy({params, request, response, auth}) {
+    const { id } = params
+    const inscricao = await Inscricao.findOrFail(id)
+    if(auth.user.isAdmin === 1) {
+      await inscricao.delete()
+    } else {
+      if (auth.user.id === inscricao.user_id) {
+        await inscricao.delete()
+      }else {
+        response.status(401).send('Não autorizado')
+      }
+    }
   }
 }
 
