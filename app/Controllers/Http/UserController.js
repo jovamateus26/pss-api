@@ -14,7 +14,7 @@ class UserController {
 
   }
 
-  async store ({request}) {
+  async store ({request, auth}) {
     const data = request.only([
       'email',
       'password',
@@ -28,7 +28,8 @@ class UserController {
       'nrEndereco'
     ])
     const user = await User.create(data)
-    return user
+    const token = await auth.generate(user)
+    return token
   }
 }
 
