@@ -206,7 +206,7 @@ class CalculoController {
     if(auth.user.isAdmin === 1) {
       response.download(Helpers.tmpPath('inscricao/' + params.id + '.pdf'))
     } else {
-      const inscricao = Inscricao.find(params.id)
+      const inscricao = await Inscricao.find(params.id)
       if (auth.user.id === inscricao.user_id) {
         response.download(Helpers.tmpPath('inscricao/' + params.id + '.pdf'))
       } else {
