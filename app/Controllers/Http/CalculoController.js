@@ -3,6 +3,7 @@ const Calculo = use('App/Models/Calculo')
 const Inscricao = use('App/Models/Inscricao')
 const Pss = use('App/Models/Pss')
 const Vaga = use('App/Models/Vaga')
+const User = use('App/Models/User')
 const Helpers = use('Helpers')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -140,6 +141,7 @@ class CalculoController {
   async gerarPdf(inscricao, parcial, total) {
     const pss = await Pss.find(inscricao.pss_id)
     const vaga = await Vaga.find(inscricao.vaga_id)
+    const user = await User.find(inscricao.user_id)
     const PDFKit = require('pdfkit');
     const fs = require('fs');
 
@@ -152,9 +154,21 @@ class CalculoController {
     pdf.fontSize('15')
       .text(vaga.nmVaga, {align: 'center'})
 
-
     var yInicial = 195
     var hInicial = 18
+
+    pdf.text(user.nmPessoa, 70, yInicial + 3, {fit: [80, 80], align: 'center'})
+      .rect(65, yInicial, 500, hInicial)
+      .stroke()
+    yInicial = yInicial + hInicial
+    pdf.text('CPF: ' + user.nrDocumento, 70, yInicial + 3, {fit: [80, 80]})
+      .rect(65, yInicial, 500, hInicial)
+      .stroke()
+    yInicial = yInicial + hInicial
+    pdf.text('E-mail: ' + user.email, 70, yInicial + 3, {fit: [80, 80]})
+      .rect(65, yInicial, 500, hInicial)
+      .stroke()
+    yInicial = yInicial + 100
     pdf.text('Titulo', 70, yInicial + 3, {fit: [80, 80]})
       .rect(65, yInicial, 500, hInicial)
       .stroke()
