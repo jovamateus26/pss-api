@@ -63,3 +63,6 @@ Route.resource('calculo', 'CalculoController')
   .validator(new Map([
     [['calculo.store'], ['CalculoStore']]
   ]))
+
+Route.get('/download/inscricao/:id', 'CalculoController.download')
+  .middleware(['auth'])
