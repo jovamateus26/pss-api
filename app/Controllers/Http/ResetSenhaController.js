@@ -58,6 +58,7 @@ class ResetSenhaController {
         message
           .from('sistema@tibagi.pr.gov.br', 'PSS')
           .to(email)
+          .subject('Alteração de senha')
       })
       return token
     } catch (e) {
