@@ -61,8 +61,15 @@ class ResetSenhaController {
       })
       return token
     } catch (e) {
-      return e.message
+      if (e.code === 'E_MISSING_DATABASE_ROW') {
+        response.status(400).send([{message: 'Email não encontrado'}])
+      } else {
+        response.status(400).send([{message: e.message}])
+      }
+
+      // response.status(400).send([{message: e }])
     }
+
 
   }
 
