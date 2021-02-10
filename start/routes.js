@@ -66,3 +66,8 @@ Route.resource('calculo', 'CalculoController')
 
 Route.get('/download/inscricao/:id', 'CalculoController.download')
   .middleware(['auth'])
+
+Route.post('/reset/password', 'ResetSenhaController.store')
+Route.post('/reset/check', 'ResetSenhaController.checkToken')
+Route.post('/reset/alterar/senha', 'ResetSenhaController.update')
+  .validator('AlterarSenha')
