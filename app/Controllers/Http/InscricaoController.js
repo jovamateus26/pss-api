@@ -84,6 +84,11 @@ class InscricaoController {
 
     const vaga = await Vaga.findOrFail(data.vaga_id)
     data.pss_id = vaga.pss_id
+
+    const valida = await this.validarData(vaga.pss_id)
+    if(!valida) {
+      response.status(400).send([{data: {message: "Prazo encerrado!"}}])
+    }
     const verifica = await this.validarData(vaga.pss_id)
     const validation = await validate(data, rules,messages)
     if (validation.fails()) {
@@ -139,6 +144,10 @@ class InscricaoController {
   async destroy({params, request, response, auth}) {
     const { id } = params
     const inscricao = await Inscricao.findOrFail(id)
+    const valida = await this.validarData(inscricao.vaga_id)
+    if(!valida) {
+      response.status(400).send([{data: {message: "Prazo encerrado!"}}])
+    }
     if(auth.user.isAdmin === 1) {
       await inscricao.delete()
     } else {
@@ -154,6 +163,15 @@ class InscricaoController {
     const pss = await Pss.findOrFail(pss_id)
     const final = new Date(pss.dataFinal)
     const agora = new Date()
+    final.setHours(23)
+    final.setMinutes(59)
+    const teste = final
+    //return {agora, final,teste}
+    if (agora > final) {
+      return false
+    } else {
+      return true
+    }
   }
 }
 
