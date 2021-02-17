@@ -1,6 +1,7 @@
 'use strict'
 const Inscricao = use('App/Models/Inscricao')
 const Vaga = use('App/Models/Vaga')
+const Pss = use('App/Models/Pss')
 const { validate } = use('Validator')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -80,9 +81,10 @@ class InscricaoController {
     ])
     data.user_id = auth.user.id
 
+
     const vaga = await Vaga.findOrFail(data.vaga_id)
     data.pss_id = vaga.pss_id
-
+    const verifica = await this.validarData(vaga.pss_id)
     const validation = await validate(data, rules,messages)
     if (validation.fails()) {
       return response.status(400).send(validation.messages())
@@ -146,6 +148,12 @@ class InscricaoController {
         response.status(401).send('Não autorizado')
       }
     }
+  }
+
+  async validarData(pss_id) {
+    const pss = await Pss.findOrFail(pss_id)
+    const final = new Date(pss.dataFinal)
+    const agora = new Date()
   }
 }
 
