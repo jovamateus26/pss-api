@@ -168,6 +168,10 @@ class CalculoController {
     pdf.text('E-mail: ' + user.email, 70, yInicial + 3, {fit: [80, 80]})
       .rect(65, yInicial, 500, hInicial)
       .stroke()
+    const nascimento = new Date(user.dataNascimento)
+    pdf.text('Data de nascimento: ' + nascimento.getDate() + '/' + (nascimento.getMonth() + 1) + '/' + nascimento.getFullYear(), 70, yInicial + 3, {fit: [80, 80]})
+      .rect(65, yInicial, 500, hInicial)
+      .stroke()
     yInicial = yInicial + 100
     pdf.text('Titulo', 70, yInicial + 3, {fit: [80, 80]})
       .rect(65, yInicial, 500, hInicial)
