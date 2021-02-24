@@ -94,8 +94,9 @@ class InscricaoController {
     if (validation.fails()) {
       return response.status(400).send(validation.messages())
     }
-    const inscricao = Inscricao.create(data)
-    return inscricao
+    // const inscricao = Inscricao.create(data)
+    // return inscricao
+    return response.status(400).send([{data: {message: "Prazo encerrado!"}}])
   }
 
   /**
@@ -149,10 +150,12 @@ class InscricaoController {
       response.status(400).send([{data: {message: "Prazo encerrado!"}}])
     }
     if(auth.user.isAdmin === 1) {
-      await inscricao.delete()
+      // await inscricao.delete()
+      return response.status(400).send([{data: {message: "Prazo encerrado!"}}])
     } else {
       if (auth.user.id === inscricao.user_id) {
-        await inscricao.delete()
+        // await inscricao.delete()
+        return response.status(400).send([{data: {message: "Prazo encerrado!"}}])
       }else {
         response.status(401).send('Não autorizado')
       }
