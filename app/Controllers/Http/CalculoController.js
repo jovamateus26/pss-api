@@ -169,6 +169,7 @@ class CalculoController {
       .rect(65, yInicial, 500, hInicial)
       .stroke()
     const nascimento = new Date(user.dataNascimento)
+    yInicial = yInicial + hInicial
     pdf.text('Data de nascimento: ' + nascimento.getDate() + '/' + (nascimento.getMonth() + 1) + '/' + nascimento.getFullYear(), 70, yInicial + 3, {fit: [80, 80]})
       .rect(65, yInicial, 500, hInicial)
       .stroke()
